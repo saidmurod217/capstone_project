@@ -1,5 +1,6 @@
 package org.example.capstoneproject;
 
+import org.example.capstoneproject.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CapstoneProjectApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CapstoneProjectApplication.class, args);
+        var context = SpringApplication.run(CapstoneProjectApplication.class, args);
+//        var repository = context.getBean(UserRepository.class);
+//        repository.findAll().forEach(e -> System.out.println(e.getUsername()));
+//        repository.deleteAll();
+//        System.out.println(Runtime.getRuntime().availableProcessors());
     }
 
 }
