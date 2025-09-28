@@ -3,14 +3,12 @@ package org.example.capstoneproject.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.capstoneproject.dto.request.DoctorRequest;
+import org.example.capstoneproject.dto.response.DoctorServiceSummary;
 import org.example.capstoneproject.entity.Doctor;
 import org.example.capstoneproject.service.DoctorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,13 @@ public class DoctorController {
         return doctorService.getAllDoctors();
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> deleteById(Integer id){
+        return doctorService.deleteById(id);
+    }
+    @GetMapping("/services")
+    public List<DoctorServiceSummary> getAllServices(Integer doctorId){
+        return doctorService.getAllServices(doctorId);
+    }
 
 }

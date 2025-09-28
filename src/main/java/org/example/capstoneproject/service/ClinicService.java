@@ -25,7 +25,6 @@ import java.util.OptionalInt;
 public class ClinicService {
     private final ClinicRepository clinicRepository;
     private final UserRepository userRepository;
-    private final RestTemplateBuilder restTemplateBuilder;
     private final DoctorRepository doctorRepository;
 
     public ResponseEntity<?> createOrUpdateClinic(ClinicRequest clinicRequest,String username){
@@ -87,6 +86,11 @@ public class ClinicService {
                 clinic.getImage(),
                 clinic.getDoctors().stream().map(d -> new DoctorSummary(d.getId(),d.getName(),d.getExperience(),d.getAbout(),d.getRating())).toList()
         );
+    }
+
+    public ResponseEntity<?> deleteById(Integer clinicId){
+        clinicRepository.deleteById(clinicId);
+        return ResponseEntity.ok("deleted");
     }
 
 }

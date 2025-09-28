@@ -3,7 +3,9 @@ package org.example.capstoneproject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,4 +30,7 @@ public class Doctor {
 
     @ManyToMany(mappedBy = "doctors")
     Set<Clinic> clinic = new HashSet<>();
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<DoctorService> services = new ArrayList<>();
 }

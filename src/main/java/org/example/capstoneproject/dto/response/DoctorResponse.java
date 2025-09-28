@@ -16,4 +16,5 @@ public class DoctorResponse {
     private String about;
     private Float rating;
     List<ClinicSummary> clinics;
+    List<DoctorServiceSummary> services;
 }

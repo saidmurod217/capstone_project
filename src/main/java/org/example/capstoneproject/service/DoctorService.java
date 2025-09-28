@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.capstoneproject.dto.request.DoctorRequest;
 import org.example.capstoneproject.dto.response.ClinicSummary;
 import org.example.capstoneproject.dto.response.DoctorResponse;
+import org.example.capstoneproject.dto.response.DoctorServiceSummary;
 import org.example.capstoneproject.entity.Doctor;
 import org.example.capstoneproject.entity.User;
 import org.example.capstoneproject.repository.DoctorRepository;
@@ -13,6 +14,7 @@ import org.example.capstoneproject.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,8 +49,20 @@ public class DoctorService {
                 doctor.getExperience(),
                 doctor.getAbout(),
                 doctor.getRating(),
-                doctor.getClinic().stream().map(c -> new ClinicSummary(c.getName(),c.getAddress(),c.getWeblink(),c.getPhone())).toList()
+                doctor.getClinic().stream().map(c -> new ClinicSummary(c.getName(),c.getAddress(),c.getWeblink(),c.getPhone())).toList(),
+                doctor.getServices().stream().map(s -> new DoctorServiceSummary(s.getPrice(),s.getDurationMinutes(),s.getService())).toList()
         );
+    }
+    public ResponseEntity<?> deleteById(Integer doctorId){
+        doctorRepository.deleteById(doctorId);
+        return ResponseEntity.ok("success");
+    }
+    public List<DoctorServiceSummary> getAllServices(Integer doctorId){
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
+        if (optionalDoctor.isEmpty())
+            return null;
+        Doctor doctor = optionalDoctor.get();
+        return doctor.getServices().stream().map(s -> new DoctorServiceSummary(s.getPrice(),s.getDurationMinutes(),s.getService())).toList();
     }
 
 }

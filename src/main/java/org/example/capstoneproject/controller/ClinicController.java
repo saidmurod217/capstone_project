@@ -33,9 +33,14 @@ public class ClinicController {
     }
     @GetMapping("/{name}")
     public ResponseEntity<?> getClinicByName(@PathVariable String name){
+        System.out.println(name);
         List<ClinicResponse> clinicResponse = clinicService.findByClinicName(name+"%");
         if (clinicResponse == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(clinicResponse);
+    }
+    @DeleteMapping
+    public ResponseEntity<?> deleteById(Integer id){
+        return clinicService.deleteById(id);
     }
 }
